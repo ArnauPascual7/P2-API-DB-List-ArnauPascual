@@ -17,7 +17,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 fun App(viewModel: DatabaseViewModel=DatabaseViewModel()) {
-    MaterialTheme {
+    ListScreen()
+
+    /*MaterialTheme {
         // API: https://www.freetogame.com/api-doc
         //Llista amb tots els registres, obtinguda del ViewModel
         val all = viewModel.allTexts.value
@@ -86,5 +88,5 @@ fun App(viewModel: DatabaseViewModel=DatabaseViewModel()) {
                 }
             }
         }
-    }
+    }*/
 }

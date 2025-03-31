@@ -10,33 +10,20 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Game(
+    val id: Int,
+    val title: String,
+    val thumbnail: String,
+    @SerialName("short_description")
+    val desc: String,
+    val genre: String
+)
 
 @Composable
-fun ListScreen() {
-    Scaffold(
-        bottomBar = {
-            BottomAppBar {
-                Row(
-                    Modifier.fillMaxSize(),
-                    horizontalArrangement = Arrangement.SpaceAround,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    IconButton(onClick = { /* do something */ }) {
-                        Icon(
-                            Icons.Filled.Home,
-                            contentDescription = null,
-                        )
-                    }
-                    IconButton(onClick = { /* do something */ }) {
-                        Icon(
-                            Icons.Filled.Star,
-                            contentDescription = null,
-                        )
-                    }
-                }
-            }
-        }
-    ) {
+fun List2Screen() {
 
-    }
 }

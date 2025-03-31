@@ -7,18 +7,20 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.createGraph
 import cat.itb.dam.m78.dbdemo3.model.DatabaseViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
 fun App(viewModel: DatabaseViewModel=DatabaseViewModel()) {
-    //ListScreen()
-    MainScreen()
+    List2Screen()
+    //MainScreen()
 
     /*MaterialTheme {
         // API: https://www.freetogame.com/api-doc
@@ -100,37 +102,25 @@ data class NavigationItem(
 
 val navigationItems = listOf(
     NavigationItem(
-        title = "Home",
+        title = "ListScreen",
         icon = Icons.Default.Home,
-        route = Screens.Home.rout
+        route = Screen.List.rout
     ),
     NavigationItem(
-        title = "Profile",
-        icon = Icons.Default.Person,
-        route = Screens.Profile.rout
-    ),
-    NavigationItem(
-        title = "Cart",
-        icon = Icons.Default.ShoppingCart,
-        route = Screens.Cart.rout
-    ),
-    NavigationItem(
-        title = "Setting",
-        icon = Icons.Default.Settings,
-        route = Screens.Setting.rout
+        title = "ListScreenFav",
+        icon = Icons.Default.Star,
+        route = Screen.Fav.rout
     )
 )
 
-sealed class Screens(val rout: String) {
-    object Home: Screens("home_screen")
-    object Profile: Screens("profile_screen")
-    object Cart: Screens("cart_screen")
-    object Setting: Screens("setting_screen")
+sealed class Screen(val rout: String) {
+    object List: Screen("list_screen")
+    object Fav: Screen("fav_screen")
 }
 
 //HomeScreen.kt
 @Composable
-fun HomeScreen(){
+fun ListScreen(){
     Box (modifier = Modifier
         .fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -143,7 +133,7 @@ fun HomeScreen(){
 
 //ProfileScreen.kt
 @Composable
-fun ProfileScreen(){
+fun FavScreen(){
     Box (modifier = Modifier
         .fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -154,86 +144,51 @@ fun ProfileScreen(){
     }
 }
 
-//CartScreen.kt
-@Composable
-fun CartScreen(){
-    Box (modifier = Modifier
-        .fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ){
-        Text(
-            text = "Cart Screen",
-        )
-    }
-}
-
-//SettingScreen
-@Composable
-fun SettingScreen(){
-    Box (modifier = Modifier
-        .fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ){
-        Text(
-            text = "Setting Screen",
-        )
-    }
-}
-
-val selectedNavigationIndex = rememberSaveable {
-    mutableIntStateOf(0)
-}
-
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
-        bottomBar = { NavigationBar(
-            containerColor = Color.White
-        ) {
-            navigationItems.forEachIndexed { index, item ->
-                NavigationBarItem(
-                    selected = selectedNavigationIndex.intValue == index,
-                    onClick = {
-                        selectedNavigationIndex.intValue = index
-                        navController.navigate(item.route)
-                    },
-                    icon = {
-                        Icon(imageVector = item.icon, contentDescription = item.title)
-                    },
-                    label = {
-                        Text(
-                            item.title,
-                            color = if (index == selectedNavigationIndex.intValue)
-                                Color.Black
-                            else Color.Gray
-                        )
-                    },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = MaterialTheme.colorScheme.surface,
-                        indicatorColor = MaterialTheme.colorScheme.primary
-                    )
-
-                )
+        bottomBar = {
+            val selectedNavigationIndex = rememberSaveable {
+                mutableIntStateOf(0)
             }
-        } }
+            /*NavigationBar(containerColor = Color.White) {
+                navigationItems.forEachIndexed { index, item ->
+                    NavigationBarItem(
+                        selected = selectedNavigationIndex.intValue == index,
+                        onClick = {
+                            selectedNavigationIndex.intValue = index
+                            navController.navigate(item.route)
+                        },
+                        icon = {
+                            Icon(imageVector = item.icon, contentDescription = item.title)
+                        },
+                        label = {
+                            Text(
+                                item.title,
+                                color = if (index == selectedNavigationIndex.intValue)
+                                    Color.Black
+                                else Color.Gray
+                            )
+                        },
+                        /*colors = NavigationBarItemDefaults.colors(
+                            selectedIconColor = MaterialTheme.colorScheme.surface,
+                            indicatorColor = MaterialTheme.colorScheme.primary
+                        )*/
+                    )
+                }
+            }*/
+        }
     ) { innerPadding ->
-
         val graph =
-            navController.createGraph(startDestination = Screens.Home.rout) {
-                composable(route = Screens.Cart.rout) {
-                    CartScreen()
+            navController.createGraph(startDestination = Screen.List.rout) {
+                composable(route = Screen.List.rout) {
+                    ListScreen()
                 }
-                composable(route = Screens.Setting.rout) {
-                    SettingScreen()
-                }
-                composable(route = Screens.Home.rout) {
-                    HomeScreen()
-                }
-                composable(route = Screens.Profile.rout) {
-                    ProfileScreen()
+                composable(route = Screen.Fav.rout) {
+                    FavScreen()
                 }
             }
         NavHost(

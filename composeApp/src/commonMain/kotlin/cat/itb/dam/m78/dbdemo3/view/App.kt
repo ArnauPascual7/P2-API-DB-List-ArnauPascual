@@ -1,23 +1,24 @@
 package cat.itb.dam.m78.dbdemo3.view
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.BlendMode.Companion.Screen
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavController
 import cat.itb.dam.m78.dbdemo3.model.DatabaseViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
 fun App(viewModel: DatabaseViewModel=DatabaseViewModel()) {
-    ListScreen()
+    //ListScreen()
+    MainScreen()
 
     /*MaterialTheme {
         // API: https://www.freetogame.com/api-doc
@@ -89,4 +90,156 @@ fun App(viewModel: DatabaseViewModel=DatabaseViewModel()) {
             }
         }
     }*/
+}
+
+data class NavigationItem(
+    val title: String,
+    val icon: ImageVector,
+    val route: String
+)
+
+val navigationItems = listOf(
+    NavigationItem(
+        title = "Home",
+        icon = Icons.Default.Home,
+        route = Screens.Home.rout
+    ),
+    NavigationItem(
+        title = "Profile",
+        icon = Icons.Default.Person,
+        route = Screens.Profile.rout
+    ),
+    NavigationItem(
+        title = "Cart",
+        icon = Icons.Default.ShoppingCart,
+        route = Screens.Cart.rout
+    ),
+    NavigationItem(
+        title = "Setting",
+        icon = Icons.Default.Settings,
+        route = Screens.Setting.rout
+    )
+)
+
+sealed class Screens(val rout: String) {
+    object Home: Screens("home_screen")
+    object Profile: Screens("profile_screen")
+    object Cart: Screens("cart_screen")
+    object Setting: Screens("setting_screen")
+}
+
+//HomeScreen.kt
+@Composable
+fun HomeScreen(){
+    Box (modifier = Modifier
+        .fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ){
+        Text(
+            text = "Home Screen",
+        )
+    }
+}
+
+//ProfileScreen.kt
+@Composable
+fun ProfileScreen(){
+    Box (modifier = Modifier
+        .fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ){
+        Text(
+            text = "Profile Screen",
+        )
+    }
+}
+
+//CartScreen.kt
+@Composable
+fun CartScreen(){
+    Box (modifier = Modifier
+        .fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ){
+        Text(
+            text = "Cart Screen",
+        )
+    }
+}
+
+//SettingScreen
+@Composable
+fun SettingScreen(){
+    Box (modifier = Modifier
+        .fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ){
+        Text(
+            text = "Setting Screen",
+        )
+    }
+}
+
+val selectedNavigationIndex = rememberSaveable {
+    mutableIntStateOf(0)
+}
+
+@Composable
+fun MainScreen() {
+    val navController = rememberNavController()
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize(),
+        bottomBar = { NavigationBar(
+            containerColor = Color.White
+        ) {
+            navigationItems.forEachIndexed { index, item ->
+                NavigationBarItem(
+                    selected = selectedNavigationIndex.intValue == index,
+                    onClick = {
+                        selectedNavigationIndex.intValue = index
+                        navController.navigate(item.route)
+                    },
+                    icon = {
+                        Icon(imageVector = item.icon, contentDescription = item.title)
+                    },
+                    label = {
+                        Text(
+                            item.title,
+                            color = if (index == selectedNavigationIndex.intValue)
+                                Color.Black
+                            else Color.Gray
+                        )
+                    },
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedIconColor = MaterialTheme.colorScheme.surface,
+                        indicatorColor = MaterialTheme.colorScheme.primary
+                    )
+
+                )
+            }
+        } }
+    ) { innerPadding ->
+
+        val graph =
+            navController.createGraph(startDestination = Screens.Home.rout) {
+                composable(route = Screens.Cart.rout) {
+                    CartScreen()
+                }
+                composable(route = Screens.Setting.rout) {
+                    SettingScreen()
+                }
+                composable(route = Screens.Home.rout) {
+                    HomeScreen()
+                }
+                composable(route = Screens.Profile.rout) {
+                    ProfileScreen()
+                }
+            }
+        NavHost(
+            navController = navController,
+            graph = graph,
+            modifier = Modifier.padding(innerPadding)
+        )
+    }
 }

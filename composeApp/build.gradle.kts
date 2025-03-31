@@ -84,6 +84,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation("androidx.navigation:navigation-compose:2.8.4")
             //implementation("org.slf4j:slf4j-api:2.0.17")
             implementation("org.slf4j:slf4j-simple:2.0.17")
             //SQL Delight
@@ -93,6 +94,7 @@ kotlin {
 
         val desktopMain by getting //Això és per que té un nom diferent al defalut
         desktopMain.dependencies {
+            implementation("androidx.navigation:navigation-compose:2.8.4")
             //Sql Delight
             implementation(libs.delight.desktop.driver)
             implementation(compose.desktop.currentOs)

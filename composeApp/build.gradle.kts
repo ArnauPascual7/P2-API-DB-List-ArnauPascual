@@ -1,5 +1,6 @@
 //Això està al plugin composeMultiplatform
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+//import org.jetbrains.compose.compose
 //Això està al  plugin kotlinMultiplatform
 //import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 //import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
@@ -16,7 +17,6 @@ plugins {
     //SQL libs.plugins
     //id("libs.pluginsdelight") version "2.0.2"
     alias(libs.plugins.sqldelight)
-
 }
 
 sqldelight {
@@ -75,7 +75,24 @@ kotlin {
     //Bloque de configuración de dependències
     sourceSets {
 
+        val ioVer = "3.1.0"
         commonMain.dependencies {
+            //runtimeOnly("org.jetbrains.compose.ui:ui-text:1.7.3")
+            //implementation(compose.desktop.currentOs)
+            //implementation("org.jetbrains.compose.ui:ui-util")
+            //implementation("androidx.compose.ui:ui-util:1.7.8")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:$ioVer")
+            implementation("io.ktor:ktor-client-core:$ioVer")
+            implementation("io.ktor:ktor-client-cio:$ioVer")
+            implementation("io.ktor:ktor-client-content-negotiation:$ioVer")
+            //implementation("io.coil-kt.coil3:coil-compose:$ioVer")
+            //implementation("io.coil-kt.coil3:coil-network-ktor3:$ioVer")
+            implementation("com.russhwolf:multiplatform-settings-no-arg:1.3.0")
+            implementation("com.russhwolf:multiplatform-settings-serialization:1.3.0")
+            implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.1")
+            //implementation(libs.androidx.ui.android)
+
+            implementation(compose.material3)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -87,7 +104,8 @@ kotlin {
             implementation(libs.androidx.navigation.runtime.desktop)
             implementation(libs.androidx.navigation.compose)
             implementation(libs.androidx.material3)
-            implementation("androidx.navigation:navigation-compose:2.8.4")
+            implementation("io.ktor:ktor-client-android:$ioVer")
+            implementation("io.ktor:ktor-server-content-negotiation:$ioVer")
             //implementation("org.slf4j:slf4j-api:2.0.17")
             implementation("org.slf4j:slf4j-simple:2.0.17")
             //SQL Delight
@@ -97,7 +115,6 @@ kotlin {
 
         val desktopMain by getting //Això és per que té un nom diferent al defalut
         desktopMain.dependencies {
-            implementation(libs.androidx.navigation.compose)
             //Sql Delight
             implementation(libs.delight.desktop.driver)
             implementation(compose.desktop.currentOs)

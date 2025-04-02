@@ -1,25 +1,21 @@
 package cat.itb.dam.m78.dbdemo3.view
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.createGraph
+import androidx.compose.ui.unit.dp
 import cat.itb.dam.m78.dbdemo3.model.DatabaseViewModel
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-@Preview
 fun App(viewModel: DatabaseViewModel=DatabaseViewModel()) {
-    List2Screen()
+    //List2Screen()
     //MainScreen()
 
     /*MaterialTheme {
@@ -92,109 +88,4 @@ fun App(viewModel: DatabaseViewModel=DatabaseViewModel()) {
             }
         }
     }*/
-}
-
-data class NavigationItem(
-    val title: String,
-    val icon: ImageVector,
-    val route: String
-)
-
-val navigationItems = listOf(
-    NavigationItem(
-        title = "ListScreen",
-        icon = Icons.Default.Home,
-        route = Screen.List.rout
-    ),
-    NavigationItem(
-        title = "ListScreenFav",
-        icon = Icons.Default.Star,
-        route = Screen.Fav.rout
-    )
-)
-
-sealed class Screen(val rout: String) {
-    object List: Screen("list_screen")
-    object Fav: Screen("fav_screen")
-}
-
-//HomeScreen.kt
-@Composable
-fun ListScreen(){
-    Box (modifier = Modifier
-        .fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ){
-        Text(
-            text = "Home Screen",
-        )
-    }
-}
-
-//ProfileScreen.kt
-@Composable
-fun FavScreen(){
-    Box (modifier = Modifier
-        .fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ){
-        Text(
-            text = "Profile Screen",
-        )
-    }
-}
-
-@Composable
-fun MainScreen() {
-    val navController = rememberNavController()
-    Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
-        bottomBar = {
-            val selectedNavigationIndex = rememberSaveable {
-                mutableIntStateOf(0)
-            }
-            /*NavigationBar(containerColor = Color.White) {
-                navigationItems.forEachIndexed { index, item ->
-                    NavigationBarItem(
-                        selected = selectedNavigationIndex.intValue == index,
-                        onClick = {
-                            selectedNavigationIndex.intValue = index
-                            navController.navigate(item.route)
-                        },
-                        icon = {
-                            Icon(imageVector = item.icon, contentDescription = item.title)
-                        },
-                        label = {
-                            Text(
-                                item.title,
-                                color = if (index == selectedNavigationIndex.intValue)
-                                    Color.Black
-                                else Color.Gray
-                            )
-                        },
-                        /*colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = MaterialTheme.colorScheme.surface,
-                            indicatorColor = MaterialTheme.colorScheme.primary
-                        )*/
-                    )
-                }
-            }*/
-        }
-    ) { innerPadding ->
-        val graph =
-            navController.createGraph(startDestination = Screen.List.rout) {
-                composable(route = Screen.List.rout) {
-                    ListScreen()
-                }
-                composable(route = Screen.Fav.rout) {
-                    FavScreen()
-                }
-            }
-        NavHost(
-            navController = navController,
-            graph = graph,
-            modifier = Modifier.padding(innerPadding)
-        )
-    }
 }

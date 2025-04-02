@@ -1,29 +1,26 @@
 package cat.itb.dam.m78.dbdemo3.view
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.findComposeDefaultViewModelStoreOwner
 import androidx.compose.ui.unit.dp
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
-
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.json.Json
-
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -58,18 +55,27 @@ class GamesViewModel : ViewModel() {
     }
 }
 
+@OptIn(InternalComposeApi::class)
 @Composable
 fun List2Screen() {
-    val viewmodel = viewModel { GamesViewModel() }
-    /*val games = viewmodel.games
+    val viewmodel = findComposeDefaultViewModelStoreOwner()?.let { viewModel(viewModelStoreOwner = it) { GamesViewModel() } }
+    val games = viewmodel?.games
     Column(Modifier.fillMaxSize().padding(25.dp)) {
         if (games != null) {
-            Text("Hola!")
+            LazyColumn {
+                games.forEach { game ->
+                    item {
+                        Row {
+                            Text(game.title)
+                        }
+                    }
+                }
+            }
         }
         else {
             Row(Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                 CircularProgressIndicator()
             }
         }
-    }*/
+    }
 }

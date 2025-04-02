@@ -17,6 +17,7 @@ plugins {
     //SQL libs.plugins
     //id("libs.pluginsdelight") version "2.0.2"
     alias(libs.plugins.sqldelight)
+    kotlin("plugin.serialization") version "1.8.20"
 }
 
 sqldelight {
@@ -76,6 +77,7 @@ kotlin {
     sourceSets {
 
         val ioVer = "3.1.0"
+        val jetVer = "1.7.3"
         commonMain.dependencies {
             //runtimeOnly("org.jetbrains.compose.ui:ui-text:1.7.3")
             //implementation(compose.desktop.currentOs)
@@ -84,32 +86,39 @@ kotlin {
             implementation("io.ktor:ktor-serialization-kotlinx-json:$ioVer")
             implementation("io.ktor:ktor-client-core:$ioVer")
             implementation("io.ktor:ktor-client-cio:$ioVer")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
             implementation("io.ktor:ktor-client-content-negotiation:$ioVer")
             //implementation("io.coil-kt.coil3:coil-compose:$ioVer")
             //implementation("io.coil-kt.coil3:coil-network-ktor3:$ioVer")
-            implementation("com.russhwolf:multiplatform-settings-no-arg:1.3.0")
-            implementation("com.russhwolf:multiplatform-settings-serialization:1.3.0")
+            //implementation("com.russhwolf:multiplatform-settings-no-arg:1.3.0")
+            //implementation("com.russhwolf:multiplatform-settings-serialization:1.3.0")
             implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.1")
+            //implementation("org.jetbrains.compose.runtime:runtime:1.7.1")
+            //implementation("org.jetbrains.compose.ui:ui-util:$jetVer")
+            //implementation("org.jetbrains.compose.foundation:foundation:$jetVer")
+            //implementation("org.jetbrains.compose.material:material:$jetVer")
+            //implementation("org.jetbrains.compose.ui:ui:$jetVer")
             //implementation(libs.androidx.ui.android)
+            //implementation("androidx.compose.material3:material3:1.3.1")
 
             implementation(compose.material3)
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+            //implementation(compose.runtime)
+            //implementation(compose.foundation)
+            //implementation(compose.material)
+            //implementation(compose.ui)
+            //implementation(compose.components.resources)
+            //implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime.compose)
-            implementation(libs.androidx.navigation.runtime.desktop)
-            implementation(libs.androidx.navigation.compose)
-            implementation(libs.androidx.material3)
-            implementation("io.ktor:ktor-client-android:$ioVer")
-            implementation("io.ktor:ktor-server-content-negotiation:$ioVer")
+            //implementation(libs.androidx.lifecycle.runtime.compose)
+            //implementation(libs.androidx.navigation.runtime.desktop)
+            //implementation(libs.androidx.navigation.compose)
+            //implementation(libs.androidx.material3)
+            //implementation("io.ktor:ktor-client-android:$ioVer")
+            //implementation("io.ktor:ktor-server-content-negotiation:$ioVer")
             //implementation("org.slf4j:slf4j-api:2.0.17")
-            implementation("org.slf4j:slf4j-simple:2.0.17")
+            //implementation("org.slf4j:slf4j-simple:2.0.17")
             //SQL Delight
-            implementation(libs.delight.coroutines.extensions)
+            //implementation(libs.delight.coroutines.extensions)
 
         }
 

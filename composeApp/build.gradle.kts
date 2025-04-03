@@ -29,12 +29,18 @@ sqldelight {
         }
     }
 }
+repositories {
+    google()
+    mavenCentral()
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+}
 
 //Bloque de configuración para Kotlin Multiplatform
 kotlin {
 
     //Target JVM
     jvm("desktop")
+    jvmToolchain(11)
 
     //Target Android
 
@@ -71,14 +77,16 @@ kotlin {
 //        binaries.executable()
 //    }
 
-
-
     //Bloque de configuración de dependències
     sourceSets {
 
         val ioVer = "3.1.0"
-        val jetVer = "1.7.3"
+        val jetVer = "1.7.0"
         commonMain.dependencies {
+            //implementation(project.dependencies.platform("androidx.compose:compose-bom:2025.03.00"))
+            //implementation("androidx.navigation:navigation-compose")
+            //implementation("androidx.lifecycle:lifecycle-runtime:2.8.5")
+            //implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
             //runtimeOnly("org.jetbrains.compose.ui:ui-text:1.7.3")
             //implementation(compose.desktop.currentOs)
             //implementation("org.jetbrains.compose.ui:ui-util")
@@ -94,12 +102,16 @@ kotlin {
             //implementation("com.russhwolf:multiplatform-settings-serialization:1.3.0")
             implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.1")
             //implementation("org.jetbrains.compose.runtime:runtime:1.7.1")
-            //implementation("org.jetbrains.compose.ui:ui-util:$jetVer")
+            implementation("org.jetbrains.compose.ui:ui-util:$jetVer")
+            implementation("org.jetbrains.compose.desktop:desktop:$jetVer")
             //implementation("org.jetbrains.compose.foundation:foundation:$jetVer")
             //implementation("org.jetbrains.compose.material:material:$jetVer")
             //implementation("org.jetbrains.compose.ui:ui:$jetVer")
             //implementation(libs.androidx.ui.android)
             //implementation("androidx.compose.material3:material3:1.3.1")
+            implementation("androidx.compose.compiler:compiler:1.5.15")
+            implementation("com.arkivanov.decompose:decompose:2.0.0")
+            implementation("com.arkivanov.decompose:extensions-compose-jetbrains:2.0.0")
 
             implementation(compose.material3)
             //implementation(compose.runtime)
@@ -109,9 +121,10 @@ kotlin {
             //implementation(compose.components.resources)
             //implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
-            //implementation(libs.androidx.lifecycle.runtime.compose)
-            //implementation(libs.androidx.navigation.runtime.desktop)
+            implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.androidx.navigation.runtime.desktop)
             //implementation(libs.androidx.navigation.compose)
+            implementation(compose.desktop.currentOs)
             //implementation(libs.androidx.material3)
             //implementation("io.ktor:ktor-client-android:$ioVer")
             //implementation("io.ktor:ktor-server-content-negotiation:$ioVer")

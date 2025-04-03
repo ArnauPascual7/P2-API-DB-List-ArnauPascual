@@ -15,7 +15,7 @@ import cat.itb.dam.m78.dbdemo3.model.DatabaseViewModel
 
 @Composable
 fun App(viewModel: DatabaseViewModel=DatabaseViewModel()) {
-    //List2Screen()
+    List2Screen()
     //MainScreen()
 
     /*MaterialTheme {

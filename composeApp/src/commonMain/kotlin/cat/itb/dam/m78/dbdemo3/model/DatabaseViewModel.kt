@@ -8,32 +8,34 @@ import cat.itb.dam.m78.dbdemo3.db.MyTable
 import kotlinx.coroutines.launch
 
 class DatabaseViewModel : ViewModel() {
-    val allTexts = mutableStateOf<List<MyTable>>(emptyList())
+    val allGames = mutableStateOf<List<MyTable>>(emptyList())
 
     init {
-        _fetchAllTexts()
+        _fetchAllGames()
     }
 
-    private fun _fetchAllTexts() {
+    private fun _fetchAllGames() {
         viewModelScope.launch {
             val myTableQueries = database.myTableQueries
-            allTexts.value = myTableQueries.selectAll().executeAsList()
+            allGames.value = myTableQueries.selectAll().executeAsList()
         }
     }
 
-    fun insertText(game: Game) {
+    fun updateAllGames() { _fetchAllGames() }
+
+    fun insertGame(game: Game) {
         viewModelScope.launch {
             val myTableQueries = database.myTableQueries
             myTableQueries.insert(game.title, game.thumbnail, game.desc, game.genre)
-            _fetchAllTexts()
+            _fetchAllGames()
         }
     }
 
-    fun deleteText(id: Long) {
+    fun deleteGame(id: Long) {
         viewModelScope.launch {
             val myTableQueries = database.myTableQueries
             myTableQueries.delete(id)
-            _fetchAllTexts()
+            _fetchAllGames()
         }
     }
 }

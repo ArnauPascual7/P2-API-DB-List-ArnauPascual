@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import cat.itb.dam.m78.dbdemo3.model.DatabaseViewModel
 
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -111,7 +112,6 @@ fun ListScreen() {
                                     modifier = Modifier.width(400.dp),
                                     shape = RectangleShape,
                                     onClick = {
-
                                     }
                                 ) {
                                     Text(game.title)

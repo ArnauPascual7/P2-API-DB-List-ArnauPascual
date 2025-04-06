@@ -19,6 +19,7 @@ import coil3.compose.AsyncImage
 @Composable
 fun detailsScreen(navListScreen: () -> Unit, game: Game) {
     val viewModel = DatabaseViewModel()
+    val games = viewModel.allGames.value
     Scaffold(
         bottomBar = {
             Button(

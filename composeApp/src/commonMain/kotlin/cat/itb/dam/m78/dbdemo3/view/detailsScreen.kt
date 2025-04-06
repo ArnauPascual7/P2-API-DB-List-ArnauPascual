@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import cat.itb.dam.m78.dbdemo3.model.Game
 
 @Composable
-fun DetailsScreen(navListScreen: () -> Unit, game: Game) {
+fun detailsScreen(navListScreen: () -> Unit, game: Game) {
     Column (
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,

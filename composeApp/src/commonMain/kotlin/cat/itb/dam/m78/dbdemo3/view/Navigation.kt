@@ -29,15 +29,15 @@ fun navigation() {
     if (viewModel != null){
         val currentScreen = viewModel.currentScreen.value
         Scaffold(
-            Modifier.fillMaxSize(),
-            bottomBar = { if (currentScreen !is Screen.Details) { bottomNavBar(viewModel) } }
+                Modifier.fillMaxSize(),
+                bottomBar = { if (currentScreen !is Screen.Details) { bottomNavBar(viewModel) } }
             ) {
             when (currentScreen) {
                 Screen.GameList -> ListScreen(
                     navDetailsScreen = { viewModel.navTo(Screen.Details(it)) }
                 )
-                is Screen.FavList -> FavScreen()
-                is Screen.Details -> DetailsScreen(
+                is Screen.FavList -> favScreen()
+                is Screen.Details -> detailsScreen(
                     navListScreen = { viewModel.navTo(Screen.GameList) },
                     game = currentScreen.game
                 )

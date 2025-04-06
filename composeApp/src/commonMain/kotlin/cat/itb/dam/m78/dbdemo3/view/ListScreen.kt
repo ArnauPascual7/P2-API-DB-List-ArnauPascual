@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import cat.itb.dam.m78.dbdemo3.model.DatabaseViewModel
 
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -59,7 +58,7 @@ class GamesViewModel : ViewModel() {
 
 @OptIn(InternalComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun ListScreen() {
+fun ListScreen(navFavScreen: () -> Unit, navDetailsScreen: (Game) -> Unit) {
     val viewmodel = findComposeDefaultViewModelStoreOwner()?.let { viewModel(viewModelStoreOwner = it) { GamesViewModel() } }
     val games = viewmodel?.games
     if (games != null) {
@@ -111,8 +110,7 @@ fun ListScreen() {
                                 Button(
                                     modifier = Modifier.width(400.dp),
                                     shape = RectangleShape,
-                                    onClick = {
-                                    }
+                                    onClick = { navDetailsScreen(game) }
                                 ) {
                                     Text(game.title)
                                 }
@@ -129,3 +127,30 @@ fun ListScreen() {
         }
     }
 }
+
+/*@OptIn(InternalComposeApi::class)
+@Composable
+fun ManualNav() {
+    val viewModel = findComposeDefaultViewModelStoreOwner()?.let { viewModel(viewModelStoreOwner = it) { ManualNavViewModel() } }
+    if (viewModel != null){
+        val currentScreen = viewModel.currentScreen.value
+        when (currentScreen) {
+            Screens.Screen1 -> ListScreen(
+                navDetailsScreen = { viewModel.navTo(Screens.Screen2) }
+            )
+            is Screens.Screen2 -> FavScreen(
+                navListScreen = { viewModel.navTo(Screens.Screen1) }
+            )
+        }
+    }
+}
+
+private sealed interface Screens {
+    data object Screen1 : Screens
+    data object Screen2 : Screens
+}
+
+private class ManualNavViewModel : ViewModel() {
+    val currentScreen = mutableStateOf<Screens>(Screens.Screen1)
+    fun navTo(screen: Screens) { currentScreen.value = screen }
+}*/

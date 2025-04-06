@@ -4,8 +4,9 @@ import cat.itb.dam.m78.dbdemo3.model.DatabaseViewModel
 
 @Composable
 fun App(viewModel: DatabaseViewModel=DatabaseViewModel()) {
-    ListScreen()
+    //ListScreen()
     //MainScreen()
+    navigation()
 
     /*MaterialTheme {
         // API: https://www.freetogame.com/api-doc

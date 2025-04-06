@@ -12,11 +12,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cat.itb.dam.m78.dbdemo3.model.DatabaseViewModel
 import cat.itb.dam.m78.dbdemo3.model.Game
 import coil3.compose.AsyncImage
 
 @Composable
 fun detailsScreen(navListScreen: () -> Unit, game: Game) {
+    val viewModel = DatabaseViewModel()
     Scaffold(
         bottomBar = {
             Button(
@@ -29,7 +31,7 @@ fun detailsScreen(navListScreen: () -> Unit, game: Game) {
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {  }
+                onClick = { viewModel.insertGame(game) },
             ) {
                 Icon(Icons.Default.Star, contentDescription = "Preferit")
             }

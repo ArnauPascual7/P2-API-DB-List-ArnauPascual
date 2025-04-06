@@ -3,7 +3,7 @@ import androidx.compose.runtime.*
 import cat.itb.dam.m78.dbdemo3.model.DatabaseViewModel
 
 @Composable
-fun App(viewModel: DatabaseViewModel=DatabaseViewModel()) {
+fun App() {
     //ListScreen()
     //MainScreen()
     navigation()

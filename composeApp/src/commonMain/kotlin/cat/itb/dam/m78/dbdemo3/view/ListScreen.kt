@@ -58,7 +58,7 @@ class GamesViewModel : ViewModel() {
 
 @OptIn(InternalComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun ListScreen(navFavScreen: () -> Unit, navDetailsScreen: (Game) -> Unit) {
+fun ListScreen(navDetailsScreen: (Game) -> Unit) {
     val viewmodel = findComposeDefaultViewModelStoreOwner()?.let { viewModel(viewModelStoreOwner = it) { GamesViewModel() } }
     val games = viewmodel?.games
     if (games != null) {

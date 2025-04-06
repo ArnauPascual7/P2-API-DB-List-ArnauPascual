@@ -1,5 +1,7 @@
 package cat.itb.dam.m78.dbdemo3.view
 
+import cat.itb.dam.m78.dbdemo3.model.Game
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -28,22 +30,10 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 
 import io.ktor.serialization.kotlinx.json.*
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.json.Json
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
-@Serializable
-data class Game(
-    val id: Int,
-    val title: String,
-    val thumbnail: String,
-    @SerialName("short_description")
-    val desc: String,
-    val genre: String
-)
 
 object FreeGamesApi {
     private const val URL = "https://www.freetogame.com/api/games"
@@ -120,7 +110,9 @@ fun ListScreen() {
                                 Button(
                                     modifier = Modifier.width(400.dp),
                                     shape = RectangleShape,
-                                    onClick = {}
+                                    onClick = {
+
+                                    }
                                 ) {
                                     Text(game.title)
                                 }

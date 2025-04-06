@@ -1,13 +1,16 @@
 CREATE TABLE myTable (
   id INTEGER PRIMARY KEY NOT NULL,
-  text TEXT NOT NULL
+  title TEXT NOT NULL,
+  thumbnail TEXT NOT NULL,
+  desc TEXT NOT NULL,
+  genre TEXT NOT NULL
 );
-CREATE INDEX myTable_full_name ON myTable(text);
+CREATE INDEX myTable_full_name ON myTable(title);
 DELETE FROM myTable;
-INSERT INTO myTable(id,text) VALUES (1, "bla");
+--INSERT INTO myTable(id,title) VALUES (1, "bla");
 selectAll:
-SELECT id, text FROM myTable;
+SELECT * FROM myTable;
 insert:
-INSERT INTO myTable(text) VALUES (?);
+INSERT INTO myTable(title, thumbnail, desc, genre) VALUES (?, ?, ?, ?);
 delete:
 DELETE FROM myTable WHERE id = ?;

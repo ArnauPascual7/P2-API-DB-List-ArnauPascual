@@ -21,10 +21,10 @@ class DatabaseViewModel : ViewModel() {
         }
     }
 
-    fun insertText(text: String) {
+    fun insertText(game: Game) {
         viewModelScope.launch {
             val myTableQueries = database.myTableQueries
-            myTableQueries.insert(text)
+            myTableQueries.insert(game.title, game.thumbnail, game.desc, game.genre)
             _fetchAllTexts()
         }
     }
@@ -32,7 +32,7 @@ class DatabaseViewModel : ViewModel() {
     fun deleteText(id: Long) {
         viewModelScope.launch {
             val myTableQueries = database.myTableQueries
-            myTableQueries.delete( id)
+            myTableQueries.delete(id)
             _fetchAllTexts()
         }
     }

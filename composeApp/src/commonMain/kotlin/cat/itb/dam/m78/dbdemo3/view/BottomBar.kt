@@ -141,7 +141,7 @@ fun BottomNavigationBar(navController: NavController) {
     }
 }
 
-@Composable
+/*@Composable
 fun MainScreen() {
 
     //val navController = rememberNavController()
@@ -180,4 +180,4 @@ fun MainScreen() {
         )*/
 
     }
-}
+}*/

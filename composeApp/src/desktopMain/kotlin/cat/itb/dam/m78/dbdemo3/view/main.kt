@@ -8,7 +8,7 @@ import androidx.compose.ui.window.application
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
-        title = "dbdemo3",
+        title = "Game List",
         state = WindowState(width = 422.dp, height = 800.dp)
     ) {
         App()

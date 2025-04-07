@@ -9,12 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.findComposeDefaultViewModelStoreOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import cat.itb.dam.m78.dbdemo3.model.Game
 
 sealed interface Screen {
     data object GameList: Screen
     data object FavList: Screen
-    data class Details(val game: Game): Screen
+    data class Details(val gameId: Int): Screen
 }
 
 class NavViewModel : ViewModel() {
@@ -39,7 +38,7 @@ fun navigation() {
                 is Screen.FavList -> favScreen()
                 is Screen.Details -> detailsScreen(
                     navListScreen = { viewModel.navTo(Screen.GameList) },
-                    game = currentScreen.game
+                    gameId = currentScreen.gameId
                 )
             }
         }

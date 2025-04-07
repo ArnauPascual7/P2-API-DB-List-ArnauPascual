@@ -1,13 +1,9 @@
 package cat.itb.dam.m78.dbdemo3.view
 import androidx.compose.runtime.*
-import cat.itb.dam.m78.dbdemo3.model.DatabaseViewModel
 
 @Composable
 fun App() {
-    //ListScreen()
-    //MainScreen()
     navigation()
-
     /*MaterialTheme {
         // API: https://www.freetogame.com/api-doc
         //Llista amb tots els registres, obtinguda del ViewModel

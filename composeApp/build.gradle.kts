@@ -25,6 +25,7 @@ sqldelight {
         create("Database") {
             packageName.set("cat.itb.dam.m78.dbdemo3.db")
             schemaOutputDirectory.set(file("src/commonMain/sqldelight/databases"))
+            deriveSchemaFromMigrations.set(true)
             //verifyMigrations.set(true)
         }
     }

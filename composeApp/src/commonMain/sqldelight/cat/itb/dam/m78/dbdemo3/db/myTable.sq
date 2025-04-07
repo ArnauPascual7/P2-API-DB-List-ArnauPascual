@@ -1,16 +1,17 @@
-CREATE TABLE myTable (
+CREATE TABLE MyTable (
   id INTEGER PRIMARY KEY NOT NULL,
+  gameid INTEGER NOT NULL,
   title TEXT NOT NULL,
   thumbnail TEXT NOT NULL,
   desc TEXT NOT NULL,
   genre TEXT NOT NULL
 );
-CREATE INDEX myTable_full_name ON myTable(title);
-DELETE FROM myTable;
---INSERT INTO myTable(id,title) VALUES (1, "bla");
+CREATE INDEX MyTable_full_name ON MyTable(title);
+DELETE FROM MyTable;
+INSERT INTO MyTable(gameid, title, thumbnail, desc, genre) VALUES (0, "Test", "None", "None", "None");
 selectAll:
-SELECT * FROM myTable;
+SELECT * FROM MyTable;
 insert:
-INSERT INTO myTable(title, thumbnail, desc, genre) VALUES (?, ?, ?, ?);
+INSERT INTO MyTable(gameid, title, thumbnail, desc, genre) VALUES (?, ?, ?, ?, ?);
 delete:
-DELETE FROM myTable WHERE id = ?;
+DELETE FROM MyTable WHERE id = ?;

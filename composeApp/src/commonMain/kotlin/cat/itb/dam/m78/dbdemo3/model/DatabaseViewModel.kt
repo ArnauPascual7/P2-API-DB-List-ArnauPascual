@@ -26,7 +26,7 @@ class DatabaseViewModel : ViewModel() {
     fun insertGame(game: Game) {
         viewModelScope.launch {
             val myTableQueries = database.myTableQueries
-            myTableQueries.insert(game.title, game.thumbnail, game.desc, game.genre)
+            myTableQueries.insert(game.id.toLong(), game.title, game.thumbnail, game.desc, game.genre)
             _fetchAllGames()
         }
     }

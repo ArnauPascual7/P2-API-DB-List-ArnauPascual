@@ -1,6 +1,5 @@
 package cat.itb.dam.m78.dbdemo3.view
 
-import cat.itb.dam.m78.dbdemo3.model.Game
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,7 +21,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(InternalComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun ListScreen(navDetailsScreen: (Game) -> Unit) {
+fun ListScreen(navDetailsScreen: (Int) -> Unit) {
     val viewmodel = findComposeDefaultViewModelStoreOwner()?.let { viewModel(viewModelStoreOwner = it) { GamesViewModel() } }
     val games = viewmodel?.games
     if (games != null) {
@@ -74,7 +73,7 @@ fun ListScreen(navDetailsScreen: (Game) -> Unit) {
                                 Button(
                                     modifier = Modifier.width(400.dp),
                                     shape = RectangleShape,
-                                    onClick = { navDetailsScreen(game) }
+                                    onClick = { navDetailsScreen(game.id) }
                                 ) {
                                     Text(game.title)
                                 }

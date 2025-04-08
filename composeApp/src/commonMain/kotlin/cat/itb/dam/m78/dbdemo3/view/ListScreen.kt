@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.findComposeDefaultViewModelStoreOwner
@@ -75,7 +76,7 @@ fun ListScreen(navDetailsScreen: (Int) -> Unit) {
                     val pinnedGame = games.find { game -> game.id == pinnedGameId }
                     if (pinnedGame != null) {
                         Column(
-                            modifier = Modifier.fillMaxWidth().background(Color.Red).padding(5.dp),
+                            modifier = Modifier.fillMaxWidth().background(Brush.horizontalGradient(listOf(Color.Red, Color.Blue))).padding(5.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Button(

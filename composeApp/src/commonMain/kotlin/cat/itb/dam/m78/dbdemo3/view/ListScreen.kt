@@ -87,6 +87,7 @@ fun ListScreen(navDetailsScreen: (Int) -> Unit) {
                                 Text(pinnedGame.title)
                             }
                         }
+                        Spacer(Modifier.height(10.dp))
                     }
                 }
                 LazyColumn {

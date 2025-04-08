@@ -6,9 +6,9 @@ CREATE TABLE MyTable (
   desc TEXT NOT NULL,
   genre TEXT NOT NULL
 );
-CREATE INDEX MyTable_full_name ON MyTable(title);
-DELETE FROM MyTable;
-INSERT INTO MyTable(gameid, title, thumbnail, desc, genre) VALUES (0, "Test", "None", "None", "None");
+--CREATE INDEX MyTable_full_name ON MyTable(title);
+--DELETE FROM MyTable;
+--INSERT INTO MyTable(gameid, title, thumbnail, desc, genre) VALUES (0, "Test", "None", "None", "None");
 selectAll:
 SELECT * FROM MyTable;
 insert:

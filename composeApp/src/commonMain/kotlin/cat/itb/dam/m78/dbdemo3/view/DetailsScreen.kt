@@ -2,6 +2,7 @@ package cat.itb.dam.m78.dbdemo3.view
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -17,6 +18,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cat.itb.dam.m78.dbdemo3.model.DatabaseViewModel
 import coil3.compose.AsyncImage
+import com.russhwolf.settings.Settings
+import com.russhwolf.settings.set
 
 @OptIn(InternalComposeApi::class)
 @Composable
@@ -38,12 +41,39 @@ fun detailsScreen(navListScreen: () -> Unit, gameId: Int) {
             },
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { dbViewModel.insertGame(game) },
+                    onClick = {
+                        if (dbViewModel.allGames.value.find { table -> table.gameid.toInt() == game.id } != null) {
+                            dbViewModel.deleteGame(gameId.toLong())
+                        }
+                        else {
+                            dbViewModel.insertGame(game)
+                        }
+                    }
                 ) {
                     Icon(Icons.Default.Star, contentDescription = "Preferit")
                 }
             }
         ) {
+            Row(
+                modifier = Modifier.fillMaxSize().padding(bottom = 150.dp, end = 15.dp),
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.End
+            ) {
+                FloatingActionButton(
+                    onClick = {
+                        val settings = Settings()
+                        val pinnedGameId =  settings.getIntOrNull("key")
+                        if (pinnedGameId == gameId) {
+                            settings["key"] = null
+                        }
+                        else {
+                            settings["key"] = gameId
+                        }
+                    }
+                ) {
+                    Icon(Icons.Default.Lock, contentDescription = "Pin")
+                }
+            }
             Column (
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,

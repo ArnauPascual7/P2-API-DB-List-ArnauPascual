@@ -7,6 +7,9 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 //import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 //import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 //import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+import org.jetbrains.compose.ExperimentalComposeLibrary
+import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -25,7 +28,7 @@ sqldelight {
         create("Database") {
             packageName.set("cat.itb.dam.m78.dbdemo3.db")
             schemaOutputDirectory.set(file("src/commonMain/sqldelight/databases"))
-            deriveSchemaFromMigrations.set(true)
+            //deriveSchemaFromMigrations.set(true)
             //verifyMigrations.set(true)
         }
     }
@@ -99,8 +102,6 @@ kotlin {
             implementation("io.ktor:ktor-client-content-negotiation:$ioVer")
             implementation("io.coil-kt.coil3:coil-compose:$ioVer")
             implementation("io.coil-kt.coil3:coil-network-ktor3:$ioVer")
-            //implementation("com.russhwolf:multiplatform-settings-no-arg:1.3.0")
-            //implementation("com.russhwolf:multiplatform-settings-serialization:1.3.0")
             implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.1")
             //implementation("org.jetbrains.compose.runtime:runtime:1.7.1")
             implementation("org.jetbrains.compose.ui:ui-util:$jetVer")
@@ -113,6 +114,8 @@ kotlin {
             implementation("androidx.compose.compiler:compiler:1.5.15")
             implementation("com.arkivanov.decompose:decompose:2.0.0")
             implementation("com.arkivanov.decompose:extensions-compose-jetbrains:2.0.0")
+            implementation("com.russhwolf:multiplatform-settings-no-arg:1.3.0")
+            implementation("com.russhwolf:multiplatform-settings-serialization:1.3.0")
 
             implementation(compose.material3)
             //implementation(compose.runtime)

@@ -1,5 +1,6 @@
 package cat.itb.dam.m78.dbdemo3.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.findComposeDefaultViewModelStoreOwner
 import androidx.compose.ui.semantics.isTraversalGroup
@@ -18,12 +20,15 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.russhwolf.settings.Settings
 
 @OptIn(InternalComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun ListScreen(navDetailsScreen: (Int) -> Unit) {
     val viewmodel = findComposeDefaultViewModelStoreOwner()?.let { viewModel(viewModelStoreOwner = it) { GamesViewModel() } }
     val games = viewmodel?.games
+    val settings = Settings()
+    val pinnedGameId = settings.getIntOrNull("key")
     if (games != null) {
         var filteredGames by remember { mutableStateOf(games) }
         var expanded by rememberSaveable { mutableStateOf(false) }
@@ -66,6 +71,23 @@ fun ListScreen(navDetailsScreen: (Int) -> Unit) {
             }
             Spacer(Modifier.height(20.dp))
             if (!expanded) {
+                if (pinnedGameId != null) {
+                    val pinnedGame = games.find { game -> game.id == pinnedGameId }
+                    if (pinnedGame != null) {
+                        Column(
+                            modifier = Modifier.fillMaxWidth().background(Color.Red).padding(5.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Button(
+                                modifier = Modifier.width(400.dp),
+                                shape = RectangleShape,
+                                onClick = { navDetailsScreen(pinnedGame.id) }
+                            ) {
+                                Text(pinnedGame.title)
+                            }
+                        }
+                    }
+                }
                 LazyColumn {
                     filteredGames.forEach { game ->
                         item {

@@ -42,8 +42,9 @@ fun detailsScreen(navListScreen: () -> Unit, gameId: Int) {
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = {
-                        if (dbViewModel.allGames.value.find { table -> table.gameid.toInt() == game.id } != null) {
-                            dbViewModel.deleteGame(gameId.toLong())
+                        val dbGame = dbViewModel.allGames.value.find { table -> table.gameid.toInt() == game.id }
+                        if (dbGame != null) {
+                            dbViewModel.deleteGame(dbGame.id)
                         }
                         else {
                             dbViewModel.insertGame(game)

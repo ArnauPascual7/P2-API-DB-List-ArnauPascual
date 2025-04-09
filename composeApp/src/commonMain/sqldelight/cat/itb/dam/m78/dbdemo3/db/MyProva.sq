@@ -1,0 +1,13 @@
+-- Nou arxiu per a la taula
+CREATE TABLE Prova (
+id INTEGER PRIMARY KEY NOT NULL,
+text TEXT NOT NULL
+);
+
+-- Comandes per a utilitzar
+selectAll:
+SELECT * FROM Prova;
+insert:
+INSERT INTO Prova(text) VALUES (?);
+delete:
+DELETE FROM Prova WHERE id = ?;

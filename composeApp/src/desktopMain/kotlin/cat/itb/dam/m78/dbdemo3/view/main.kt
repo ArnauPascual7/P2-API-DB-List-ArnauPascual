@@ -8,7 +8,7 @@ import androidx.compose.ui.window.application
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
-        title = "Game List",
+        title = "P2Examen",
         state = WindowState(width = 422.dp, height = 800.dp)
     ) {
         // Per a inicialitzar la base de dades s'ha d'inicialitzar el viewmodel
